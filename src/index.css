@@ -1,0 +1,245 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: 37 99 235;
+    --primary-hover: 29 78 216;
+  }
+
+  html,
+  body {
+    @apply h-full antialiased font-sans text-slate-800 bg-slate-50 dark:bg-slate-950 dark:text-slate-100;
+  }
+
+  #root {
+    @apply min-h-screen flex flex-col;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 dark:bg-slate-700 rounded-full hover:bg-slate-400 dark:hover:bg-slate-600;
+}
+
+/* Leaflet Customizations */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  font-family: inherit;
+  z-index: 10;
+}
+
+.leaflet-popup-content-wrapper {
+  padding: 0 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1) !important;
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(226, 232, 240, 0.9) !important;
+  overflow: hidden;
+}
+
+.leaflet-popup-content {
+  margin: 12px 14px !important;
+  line-height: 1.4 !important;
+}
+
+.leaflet-popup-tip {
+  background: rgba(255, 255, 255, 0.98) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+}
+
+.custom-pulse-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pulse-ring {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  animation: pulse-ring-anim 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes pulse-ring-anim {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.9;
+  }
+
+  80%,
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+
+/* Glassmorphism helpers */
+.glass-panel {
+  @apply bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/80;
+}
+
+.glass-nav {
+  @apply bg-slate-900/90 backdrop-blur-md border-r border-slate-800/80;
+}
+
+/* Status indicator dot animation */
+.status-dot-pulse::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: inherit;
+  animation: ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Sidebar subtle icon hover animation */
+@keyframes icon-bounce-scale {
+  0% {
+    transform: scale(1) translateY(0);
+  }
+
+  40% {
+    transform: scale(1.18) translateY(-2px);
+  }
+
+  70% {
+    transform: scale(1.08) translateY(0.5px);
+  }
+
+  100% {
+    transform: scale(1.14) translateY(-1px);
+  }
+}
+
+.sidebar-icon-animate {
+  transform-origin: center;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.15s ease-in-out;
+}
+
+.group:hover .sidebar-icon-animate {
+  animation: icon-bounce-scale 0.32s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.group:active .sidebar-icon-animate {
+  transform: scale(0.95);
+  animation: none;
+}
+
+/* Sidebar active highlight slide-in animation */
+@keyframes sidebar-highlight-slide-in {
+  0% {
+    opacity: 0;
+    transform: translateX(-14px) scaleX(0.96);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0) scaleX(1);
+  }
+}
+
+@keyframes sidebar-accent-slide {
+  0% {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+.sidebar-active-highlight {
+  animation: sidebar-highlight-slide-in 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.sidebar-accent-bar {
+  animation: sidebar-accent-slide 0.22s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Staggered Entrance Animation Delays */
+.stagger-1 {
+  animation-delay: 60ms;
+}
+.stagger-2 {
+  animation-delay: 120ms;
+}
+.stagger-3 {
+  animation-delay: 180ms;
+}
+.stagger-4 {
+  animation-delay: 240ms;
+}
+.stagger-5 {
+  animation-delay: 300ms;
+}
+.stagger-6 {
+  animation-delay: 360ms;
+}
+
+/* Card Hover Elevation & 3D Lift */
+.card-interactive {
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.24s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+}
+
+.card-interactive:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px -4px rgba(15, 23, 42, 0.08), 0 4px 6px -2px rgba(15, 23, 42, 0.03);
+}
+
+/* Button & Clickable Element Micro-interactions */
+.btn-press {
+  transition: transform 0.12s cubic-bezier(0.4, 0, 0.2, 1), filter 0.15s ease, background-color 0.15s ease;
+}
+
+.btn-press:active {
+  transform: scale(0.96);
+}
+
+/* Radar Sweep Effect for GPS & Live Tracking */
+.radar-sweep-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.radar-sweep-effect::after {
+  content: '';
+  position: absolute;
+  inset: -100%;
+  background: conic-gradient(from 0deg, transparent 0deg, rgba(37, 99, 235, 0.15) 60deg, transparent 90deg);
+  animation: radarSweep 3.5s linear infinite;
+  pointer-events: none;
+}
+
+/* Shimmer Loading / Accent Bar */
+.shimmer-bg {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Glowing Border Accent */
+.glow-accent-blue {
+  box-shadow: 0 0 15px -2px rgba(37, 99, 235, 0.3);
+}
+
+.glow-accent-emerald {
+  box-shadow: 0 0 15px -2px rgba(16, 185, 129, 0.3);
+}
